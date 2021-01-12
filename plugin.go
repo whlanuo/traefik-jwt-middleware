@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
-	//"github.com/lestrrat-go/jwx/jwk"
-	//"github.com/lestrrat-go/jwx/jws"
+	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/lestrrat-go/jwx/jwt"
 )
 
 type Config struct {
@@ -69,13 +70,13 @@ func (j *JWT) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	payload, verificationError := verifyJWT(token, j.secret)
+	tk, verificationError := verifyJWT(token, j.secret)
 	if verificationError != nil {
 		http.Error(res, "Not allowed", http.StatusUnauthorized)
 		return
 	}
 
-	if payload != "" {
+	if tk != nil {
 		// Inject header as proxypayload or configured name
 		req.Header.Add(j.proxyHeaderName, token)
 		fmt.Println(req.Header)
@@ -86,20 +87,18 @@ func (j *JWT) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 }
 
 // verifyJWT Verifies jwt token with jwks
-func verifyJWT(token string, jwks string) (string, error) {
-	//jwkey, err := jwk.ParseKey([]byte(jwks))
-	//if err != nil {
-	//	return "", err
-	//}
-	//
-	//payload, err := jws.VerifyWithJWK([]byte(token), jwkey)
-	//if err != nil {
-	//	return "", err
-	//} else {
-	//	return string(payload), nil
-	//}
+func verifyJWT(token string, jwks string) (*jwt.Token, error) {
+	jwkSet, err := jwk.ParseString(jwks)
+	if err != nil {
+		return nil, err
+	}
 
-	return token, nil
+	tk, err := jwt.ParseString(token, jwt.WithKeySet(jwkSet), jwt.UseDefaultKey(true), jwt.WithClock(jwt.ClockFunc(time.Now)))
+	if err != nil {
+		return nil, err
+	}
+
+	return &tk, nil
 }
 
 // preprocessJWT Takes the request header string, strips prefix and whitespaces and returns a Token
