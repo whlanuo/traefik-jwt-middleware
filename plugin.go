@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/lestrrat-go/jwx/jwt"
+	"github.com/whlanuo/traefik-jwt-middleware/jwx/jwk"
+	"github.com/whlanuo/traefik-jwt-middleware/jwx/jwt"
 )
 
 type Config struct {
