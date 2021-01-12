@@ -1,11 +1,3 @@
-# github.com/Bowery/prompt v0.0.0-20190916142128-fa8279994f75
-## explicit
-# github.com/dchest/safefile v0.0.0-20151022103144-855e8d98f185
-## explicit
-# github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
-## explicit
-# github.com/kardianos/govendor v1.0.9
-## explicit
 # github.com/lestrrat-go/backoff/v2 v2.0.3
 github.com/lestrrat-go/backoff/v2
 # github.com/lestrrat-go/httpcc v0.0.0-20210101035852-e7e8fea419e3
@@ -33,9 +25,3 @@ github.com/lestrrat-go/option
 github.com/pkg/errors
 # golang.org/x/crypto v0.0.0-20201217014255-9d1352758620
 golang.org/x/crypto/curve25519
-# golang.org/x/sys v0.0.0-20210110051926-789bb1bd4061
-## explicit
-# golang.org/x/tools v0.0.0-20210111221946-d33bae441459
-## explicit
-# gopkg.in/yaml.v2 v2.4.0
-## explicit
