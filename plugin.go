@@ -15,21 +15,10 @@ type Config struct {
 	ProxyHeaderName string `json:"proxyHeaderName,omitempty"`
 	AuthHeader      string `json:"authHeader,omitempty"`
 	HeaderPrefix    string `json:"headerPrefix,omitempty"`
-	JwkSet string
-	JwksUrl string
 }
 
 func CreateConfig() *Config {
 	return &Config{}
-}
-
-type JWT struct {
-	next            http.Handler
-	name            string
-	secret          string
-	proxyHeaderName string
-	authHeader      string
-	headerPrefix    string
 }
 
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
@@ -55,6 +44,15 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		authHeader:      config.AuthHeader,
 		headerPrefix:    config.HeaderPrefix,
 	}, nil
+}
+
+type JWT struct {
+	next            http.Handler
+	name            string
+	secret          string
+	proxyHeaderName string
+	authHeader      string
+	headerPrefix    string
 }
 
 func (j *JWT) ServeHTTP(res http.ResponseWriter, req *http.Request) {
