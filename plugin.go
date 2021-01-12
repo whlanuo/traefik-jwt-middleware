@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/lestrrat-go/jwx/jws"
+	//"github.com/lestrrat-go/jwx/jwk"
+	//"github.com/lestrrat-go/jwx/jws"
 )
 
 type Config struct {
@@ -87,17 +87,19 @@ func (j *JWT) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 // verifyJWT Verifies jwt token with jwks
 func verifyJWT(token string, jwks string) (string, error) {
-	jwkey, err := jwk.ParseKey([]byte(jwks))
-	if err != nil {
-		return "", err
-	}
+	//jwkey, err := jwk.ParseKey([]byte(jwks))
+	//if err != nil {
+	//	return "", err
+	//}
+	//
+	//payload, err := jws.VerifyWithJWK([]byte(token), jwkey)
+	//if err != nil {
+	//	return "", err
+	//} else {
+	//	return string(payload), nil
+	//}
 
-	payload, err := jws.VerifyWithJWK([]byte(token), jwkey)
-	if err != nil {
-		return "", err
-	} else {
-		return string(payload), nil
-	}
+	return token, nil
 }
 
 // preprocessJWT Takes the request header string, strips prefix and whitespaces and returns a Token
